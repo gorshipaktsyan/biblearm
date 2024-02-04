@@ -34,8 +34,14 @@ export default function Books({ navigation }) {
   }
 
   return (
-    <div style={{ flex: 1 }}>
-
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: 15 }}>
+      <div style={{ maxWidth: 327, textAlign: 'center' }}>
+        {books.map(b => {
+          return (
+              <span style={{ padding: '10px 5px'}}>{b.abbreviation}</span>
+          )
+        })}
+      </div>
     </div>
   );
 }
