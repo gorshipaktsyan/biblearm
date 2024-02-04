@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import BooksService from "../../../services/BooksService";
 import useAppState from "../../../libs/hooks/useAppState";
 import {actions} from "../../../store/store";
+import {useNavigate} from "react-router-dom";
 
 export default function Books({ navigation }) {
-  const [selectedBook, setSelectedBook] = useState({});
   const { state, dispatch } = useAppState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     function getBooks() {
@@ -35,7 +36,7 @@ export default function Books({ navigation }) {
   }, []);
 
   function handlePress(book) {
-    setSelectedBook(book);
+    navigate('/chapter')
   }
 
   return (
@@ -43,7 +44,7 @@ export default function Books({ navigation }) {
       <div style={{ maxWidth: 327, textAlign: 'center' }}>
         {state.home.books.map(b => {
           return (
-              <span style={{ padding: '10px 5px'}}>{b.abbreviation}</span>
+            <span style={{ padding: '10px 5px'}} onClick={() => handlePress(b)}>{b.abbreviation}</span>
           )
         })}
       </div>

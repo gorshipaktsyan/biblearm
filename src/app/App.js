@@ -15,18 +15,16 @@ function App() {
       path: "/chapter",
       element: <Chapter />,
     },
-    // {
-    //   path: "/chapters",
-    //   element: <Chapters />,
-    // },
   ];
   return (
-      <StateProvider>
-        <Box>
-          <CssBaseline />
-          <Books />
-        </Box>
-      </StateProvider>
+    <StateProvider>
+      <CssBaseline />
+        <Routes>
+          {routes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Routes>
+    </StateProvider>
   );
 }
 
