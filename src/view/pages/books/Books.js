@@ -2,13 +2,15 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import BooksService from "../../../services/BooksService";
 import useAppState from "../../../libs/hooks/useAppState";
-import {actions} from "../../../store/store";
-import {useNavigate} from "react-router-dom";
+import { actions } from "../../../store/store";
+import { useNavigate } from "react-router-dom";
+import BooksStyledComponents from "./styles";
+
+const [StyledContainer, StyledList, StyledItem] = BooksStyledComponents;
 
 export default function Books({ navigation }) {
   const { state, dispatch } = useAppState();
   const navigate = useNavigate();
-
 
   useEffect(() => {
     function getBooks() {
@@ -29,27 +31,28 @@ export default function Books({ navigation }) {
       });
       dispatch({
         type: actions.SET_BOOKS,
-        payload: books
-      })
-
+        payload: books,
+      });
     }
 
     getBooks();
   }, []);
 
   function handlePress(book) {
-    navigate('/chapter')
+    navigate("/chapter");
   }
 
   return (
-    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: 15 }}>
-      <div style={{ maxWidth: 327, textAlign: 'center' }}>
-        {state.home.books.map(b => {
+    <StyledContainer>
+      <StyledList>
+        {state.home.books.map((b) => {
           return (
-            <span style={{ padding: '10px 5px'}} onClick={() => handlePress(b)}>{b.abbreviation}</span>
-          )
+            <StyledItem onClick={() => handlePress(b)}>
+              {b.abbreviation}
+            </StyledItem>
+          );
         })}
-      </Box>
-    </Box>
+      </StyledList>
+    </StyledContainer>
   );
 }

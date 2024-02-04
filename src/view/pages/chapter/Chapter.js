@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import BooksService from "../../../services/BooksService";
 import useAppState from "../../../libs/hooks/useAppState";
+import { Box } from "@mui/system";
 
 export default function Chapter() {
   const { state, dispatch } = useAppState();
@@ -17,13 +18,29 @@ export default function Chapter() {
   const isSubjectVisible = currentChapter === 1;
 
   return (
-    <div>
-      {(verses || []).map(v => {
+    <Box
+      sx={{
+        width: "400px",
+        display: "flex",
+        justifyContent: "flex-end",
+        flexDirection: "column",
+        marginTop: "15px",
+      }}
+    >
+      {(verses || []).map((v) => {
         return (
-            <div>{v.verse}</div>
-        )
-
+          <Box
+            sx={{
+              maxWidth: "400px",
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+            }}
+          >
+            {v.verse}
+          </Box>
+        );
       })}
-    </div>
+    </Box>
   );
 }
