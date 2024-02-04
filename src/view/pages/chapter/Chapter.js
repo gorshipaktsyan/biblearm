@@ -10,7 +10,6 @@ export default function Chapter() {
     currentBook,
     currentChapter,
   });
-
   const chapterName =
     currentChapter === 1
       ? `${currentChapter}-ԻՆ ԳԼՈՒԽ`
@@ -23,6 +22,7 @@ export default function Chapter() {
         return (
             <div>{v.verse}</div>
         )
+
       })}
     </div>
   );

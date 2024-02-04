@@ -9,9 +9,10 @@ export default function Books({ navigation }) {
   const { state, dispatch } = useAppState();
   const navigate = useNavigate();
 
+
   useEffect(() => {
     function getBooks() {
-      const data = BooksService.getBooks()
+      const data = BooksService.getBooks();
       const books = data.map((book) => {
         const chapters = [...Array(book.chapters + 1).keys()];
         chapters.shift();
@@ -30,6 +31,7 @@ export default function Books({ navigation }) {
         type: actions.SET_BOOKS,
         payload: books
       })
+
     }
 
     getBooks();
@@ -47,7 +49,7 @@ export default function Books({ navigation }) {
             <span style={{ padding: '10px 5px'}} onClick={() => handlePress(b)}>{b.abbreviation}</span>
           )
         })}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
