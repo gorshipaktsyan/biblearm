@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import BooksService from "../../../services/BooksService";
 
 export default function Books({ navigation }) {
-  const [books, setBooks] = useState({});
+  const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState({});
 
   useEffect(() => {

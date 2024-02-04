@@ -5,8 +5,8 @@ class BooksService {
   static getBooks() {
      return books
   }
-  static getChapter() {
-    return books
+  static getChapter({currentBook, currentChapter, }) {
+    return verses.filter(v => (v.book_id === currentBook && v.chapter === currentChapter))
   }
 }
 
