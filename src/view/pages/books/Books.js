@@ -1,10 +1,12 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import BooksService from "../../../services/BooksService";
+import useAppState from "../../../libs/hooks/useAppState";
+import {actions} from "../../../store/store";
 
 export default function Books({ navigation }) {
-  const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState({});
+  const { state, dispatch } = useAppState();
 
   useEffect(() => {
     function getBooks() {
@@ -23,7 +25,10 @@ export default function Books({ navigation }) {
           content: chapters,
         };
       });
-      setBooks(books)
+      dispatch({
+        type: actions.SET_BOOKS,
+        payload: books
+      })
     }
 
     getBooks();
@@ -36,7 +41,7 @@ export default function Books({ navigation }) {
   return (
     <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: 15 }}>
       <div style={{ maxWidth: 327, textAlign: 'center' }}>
-        {books.map(b => {
+        {state.home.books.map(b => {
           return (
               <span style={{ padding: '10px 5px'}}>{b.abbreviation}</span>
           )
