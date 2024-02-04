@@ -1,19 +1,15 @@
 import React from "react";
-import { View } from "react-native";
-import { Text } from "native-base";
-import HeaderStyledComponents from "./styles";
-
-const [StyledVerse] = HeaderStyledComponents;
+import {Box} from "@mui/material";
 
 export default function Verse({ verse }) {
   return (
-    <StyledVerse>
-      <View style={{ marginHorizontal: 5 }}>
-        <Text style={{ color: "#000" }}>{verse.number}</Text>
-      </View>
-      <View style={{ paddingRight: 25 }}>
-        <Text style={{ fontSize: 14, color: "#000" }}>{verse.verse}</Text>
-      </View>
-    </StyledVerse>
+    <Box>
+      <Box >
+        <span style={{ color: "#000" }}>{verse?.number}</span>
+      </Box>
+      <Box style={{ paddingRight: 25 }}>
+        <span style={{ fontSize: 14, color: "#000" }}>{verse?.verse}</span>
+      </Box>
+    </Box>
   );
 }
