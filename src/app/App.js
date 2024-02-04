@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Books from "../view/pages/books/Books";
 import Chapter from "../view/pages/chapter/Chapter";
@@ -20,10 +20,16 @@ function App() {
     // },
   ];
   return (
-    <Box>
-      <CssBaseline />
-      <Chapter />
-    </Box>
+    <BrowserRouter>
+      <Box>
+        <CssBaseline />
+        <Routes>
+          {routes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Routes>
+      </Box>
+    </BrowserRouter>
   );
 }
 

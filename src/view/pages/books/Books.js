@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import BooksService from "../../../services/BooksService";
+import { Box } from "@mui/system";
 
 export default function Books({ navigation }) {
   const [books, setBooks] = useState([]);
@@ -8,7 +9,7 @@ export default function Books({ navigation }) {
 
   useEffect(() => {
     function getBooks() {
-      const data = BooksService.getBooks()
+      const data = BooksService.getBooks();
       const books = data.map((book) => {
         const chapters = [...Array(book.chapters + 1).keys()];
         chapters.shift();
@@ -23,7 +24,7 @@ export default function Books({ navigation }) {
           content: chapters,
         };
       });
-      setBooks(books)
+      setBooks(books);
     }
 
     getBooks();
@@ -34,14 +35,45 @@ export default function Books({ navigation }) {
   }
 
   return (
-    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: 15 }}>
-      <div style={{ maxWidth: 327, textAlign: 'center' }}>
-        {books.map(b => {
+    <Box
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        marginTop: 15,
+      }}
+    >
+      <Box
+        style={{
+          maxWidth: "400px",
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          width: "100%",
+        }}
+      >
+        {books.map((b) => {
           return (
-              <span style={{ padding: '10px 5px'}}>{b.abbreviation}</span>
-          )
+            <Box
+              sx={{
+                padding: "10px 5px",
+                fontSize: "20px",
+                width: "80px",
+                height: "40px",
+                display: "flex",
+                justifyContent: "center",
+                "&:hover": {
+                  backgroundColor: "#f0f0dc",
+                  cursor: "pointer",
+                },
+              }}
+              onClick={() => handlePress(b)}
+            >
+              {b.abbreviation}
+            </Box>
+          );
         })}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
