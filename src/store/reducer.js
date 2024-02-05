@@ -1,4 +1,4 @@
-import actions from './actions.js';
+import actions from "./actions.js";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -7,7 +7,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         home: {
-          books
+          books,
         },
       };
     }
@@ -17,19 +17,17 @@ const reducer = (state, action) => {
         ...state,
         chapter: {
           ...state.chapter,
-          ...data
+          ...data,
         },
       };
     }
     case actions.SET_CURRENT_BCV: {
-      const { currentBook, currentChapter, currentVerse = 1 } = action.payload;
+      console.log(action.payload);
       return {
         ...state,
         chapter: {
           ...state.chapter,
-          currentBook,
-          currentChapter,
-          currentVerse
+          ...action.payload,
         },
       };
     }

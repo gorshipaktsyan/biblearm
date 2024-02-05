@@ -1,65 +1,56 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
-import BooksService from "../../../services/BooksService";
+import { useState } from "react";
 import useAppState from "../../../libs/hooks/useAppState";
-import { actions } from "../../../store/store";
-import { useNavigate } from "react-router-dom";
 
-export default function Books({ navigation }) {
+import { useNavigate } from "react-router-dom";
+import BooksStyledComponents from "./styles";
+import BookModal from "./Modal";
+import actions from "../../../store/actions";
+
+const { StyledContainer, StyledList, StyledItem } = BooksStyledComponents;
+
+export default function Books() {
   const { state, dispatch } = useAppState();
+  const [isOpen, setIsOpen] = useState(false);
+  const [chapters, setChapters] = useState();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    function getBooks() {
-      const data = BooksService.getBooks();
-      const books = data.map((book) => {
-        const chapters = [...Array(book.chapters + 1).keys()];
-        chapters.shift();
-        return {
-          title: book.name,
-          abbreviation: book.abbreviation,
-          chapters: book.chapters,
-          code: book.code,
-          fullName: book.full_name,
-          name: book.name,
-          subject: book.subject,
-          content: chapters,
-        };
-      });
-      dispatch({
-        type: actions.SET_BOOKS,
-        payload: books,
-      });
-    }
-
-    getBooks();
-  }, []);
-
   function handlePress(book) {
+    dispatch({
+      type: actions.SET_CURRENT_BCV,
+      payload: { currentBook: book.bookId },
+    });
+    setChapters(book.chapters);
+    setIsOpen(true);
+  }
+  function handleChapterClick(currentChapter) {
+    dispatch({
+      type: actions.SET_CURRENT_BCV,
+      payload: { currentChapter },
+    });
+    setIsOpen(false);
     navigate("/chapter");
   }
-
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        marginTop: 15,
-      }}
-    >
-      <div style={{ maxWidth: 327, textAlign: "center" }}>
-        {state.home.books.map((b) => {
+    <StyledContainer>
+      <StyledList>
+        {state.home.books.map((book) => {
           return (
-            <span
-              style={{ padding: "10px 5px" }}
-              onClick={() => handlePress(b)}
-            >
-              {b.abbreviation}
-            </span>
+            <StyledItem key={book.bookId} onClick={() => handlePress(book)}>
+              {book.abbreviation}
+            </StyledItem>
           );
         })}
-      </div>
-    </div>
+      </StyledList>
+      {isOpen && (
+        <BookModal
+          chapters={chapters}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          handleChapterClick={handleChapterClick}
+        />
+      )}
+    </StyledContainer>
+
   );
 }

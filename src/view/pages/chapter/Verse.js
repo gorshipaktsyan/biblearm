@@ -1,15 +1,17 @@
-import React from "react";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
+import Prefix from "./Prefix";
+import ChapterStyledComponents from "./styles";
 
-export default function Verse({ verse }) {
+const { StyledVerse, StyledVerseNumber } = ChapterStyledComponents;
+
+export default function Verse({ id, prefix, number, verse }) {
   return (
-    <Box>
-      <Box >
-        <span style={{ color: "#000" }}>{verse?.number}</span>
-      </Box>
-      <Box style={{ paddingRight: 25 }}>
-        <span style={{ fontSize: 14, color: "#000" }}>{verse?.verse}</span>
-      </Box>
-    </Box>
+    <>
+      <Prefix prefix={prefix} />
+      <StyledVerse>
+        <StyledVerseNumber>{number}</StyledVerseNumber>
+        <Box>{verse}</Box>
+      </StyledVerse>
+    </>
   );
 }
