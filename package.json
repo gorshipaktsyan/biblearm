@@ -1,5 +1,6 @@
 {
-  "name": "arm-bible",
+  "homepage": "https://gorshipaktsyan.github.io/biblearm",
+  "name": "biblearm",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
