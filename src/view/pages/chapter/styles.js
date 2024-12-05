@@ -16,26 +16,7 @@ const ChapterStyledComponents = {
     marginTop: "15px",
     marginBottom: "50px",
   }),
-  StyledVerse: styled(Box)({
-    maxWidth: "400px",
-    display: "flex",
-    justifyContent: "center",
-    width: "100%",
-  }),
-  StyledVerseNumber: styled(Box)({
-    fontWeight: "bold",
-    marginRight: "5px",
-  }),
-  SubjectTitle: styled(Box)({
-    fontSize: "16px",
-    marginTop: "10px",
-    display: "flex",
-    justifyContent: "center",
-  }),
-  StyledSubject: styled(Box)({
-    fontSize: "16px",
-    textAlign: "center",
-  }),
+ 
   StyledHeader: styled(Box)({
     display: "flex",
     flexDirection: "column",
