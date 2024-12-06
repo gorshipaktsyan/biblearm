@@ -9,7 +9,7 @@ import { setAppBarTitle } from "../redux/slice/appBarSlice";
 import { AppDispatch, RootState } from "../redux/store";
 import { setFontSize, setTitle } from "../utils";
 import { useDoubleTap } from "../utils/hooks";
-import { AppBar } from "../view/components";
+import AppBar from "../view/components/AppBar";
 
 function Layout() {
   const settings = useSelector((state: RootState) => state.settings);

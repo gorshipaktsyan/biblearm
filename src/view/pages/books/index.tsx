@@ -1,63 +1,46 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import BooksStyledComponents from "./styles";
-import BookModal from "./Modal";
-import actions from "../../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-
-interface Book {
-  bookId: string;
-  chapters: number[];
-  abbreviation: string;
-}
+import { IBook } from "../../../types";
+import { setCurrentBook } from "../../../redux/slice/currentBookSlice";
+import BooksHeader from "./BooksHeader";
+import ChaptersList from "./ChaptersList";
+import VersesList from "./VersesList";
 
 const { StyledContainer, StyledList, StyledItem } = BooksStyledComponents;
 
 export default function Books() {
   const dispatch = useDispatch();
   const { books } = useSelector((state: RootState) => state.books);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [chapters, setChapters] = useState<number[]>([]);
-  const navigate = useNavigate();
+  const { currentBook } = useSelector((state: RootState) => state.currentBook);
+  const { currentVerses } = useSelector(
+    (state: RootState) => state.currentVerses
+  );
 
-  const handlePress = (book: Book): void => {
-    dispatch({
-      type: actions.SET_CURRENT_BCV,
-      payload: { currentBook: book.bookId },
-    });
-    setChapters(book.chapters);
-    setIsOpen(true);
-  };
-
-  const handleChapterClick = (currentChapter: number): void => {
-    dispatch({
-      type: actions.SET_CURRENT_BCV,
-      payload: { currentChapter },
-    });
-    setIsOpen(false);
-    navigate("/chapter");
+  const handlePress = (book: IBook): void => {
+    dispatch(setCurrentBook(book));
   };
 
   return (
-    <StyledContainer>
-      <StyledList>
-        {state.home.books.map((book: Book) => {
-          return (
-            <StyledItem key={book.bookId} onClick={() => handlePress(book)}>
-              {book.abbreviation}
-            </StyledItem>
-          );
-        })}
-      </StyledList>
-      {isOpen && (
-        <BookModal
-          chapters={chapters}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          handleChapterClick={handleChapterClick}
-        />
-      )}
-    </StyledContainer>
+    <>
+      <BooksHeader />
+      <StyledContainer>
+        <StyledList>
+          {books.map((book: IBook) => {
+            return (
+              <StyledItem key={book._id} onClick={() => handlePress(book)}>
+                {book.abbreviation}
+              </StyledItem>
+            );
+          })}
+        </StyledList>
+        {currentBook && (
+          <>
+            <ChaptersList />
+            {currentVerses.length && <VersesList />}
+          </>
+        )}
+      </StyledContainer>
+    </>
   );
 }

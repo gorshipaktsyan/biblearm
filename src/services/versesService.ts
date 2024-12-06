@@ -15,6 +15,11 @@ class VersesService implements IVersesService {
   get(): IVerse[] {
     return this.verses;
   }
+  getChapterVerses(bookId: number, chapter: number): IVerse[] {
+    return this.verses.filter((verse) => {
+      verse.book_id === bookId && verse.chapter === chapter;
+    });
+  }
 }
 
 const versesService = new VersesService();

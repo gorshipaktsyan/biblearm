@@ -4,20 +4,20 @@ import { InitStateNames } from "../../config/constants";
 import booksService from "../../services/booksService";
 import { IBook } from "../../types";
 
-interface HymnsState {
+interface IBooksState {
   books: IBook[];
   filteredBooks: IBook[];
 }
 
-const initialState: HymnsState = {
+const initialState: IBooksState = {
   books: booksService.get() || [],
   filteredBooks: [],
 };
 
-export const hymnsSlice = createSlice({
-  name: InitStateNames.hymns,
+export const booksSlice = createSlice({
+  name: InitStateNames.books,
   initialState,
   reducers: {},
 });
 
-export default hymnsSlice.reducer;
+export default booksSlice.reducer;

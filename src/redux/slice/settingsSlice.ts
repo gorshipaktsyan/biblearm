@@ -1,12 +1,17 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { armenian, InitStateNames } from '../../config/constants';
+import {
+  armenian,
+  InitStateNames,
+  ILanguageTypes,
+} from "../../config/constants";
 
 interface SettingsState {
   fontSize: number;
   isEngSearchVisible: boolean;
   isAllowToUseArrows: boolean;
   isMobile: boolean;
+  language: ILanguageTypes;
 }
 
 const initialState: SettingsState = {
@@ -14,6 +19,7 @@ const initialState: SettingsState = {
   isEngSearchVisible: false,
   isAllowToUseArrows: false,
   isMobile: navigator.maxTouchPoints > 0,
+  language: armenian,
 };
 
 export const settingsSlice = createSlice({
@@ -28,8 +34,8 @@ export const settingsSlice = createSlice({
     },
     setIsAllowToUseArrows: (state, action: PayloadAction<boolean>) => {
       state.isAllowToUseArrows = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const { changeFontSize, setIsEngSearchVisible, setIsAllowToUseArrows } =

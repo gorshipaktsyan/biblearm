@@ -10,7 +10,7 @@ const initialState: ISubjectSlice = {
   subject: "",
 };
 
-export const appBarSlice = createSlice({
+export const subjectSlice = createSlice({
   name: InitStateNames.appBar,
   initialState,
   reducers: {
@@ -20,6 +20,6 @@ export const appBarSlice = createSlice({
   },
 });
 
-export const { setSubject } = appBarSlice.actions;
+export const { setSubject } = subjectSlice.actions;
 
-export default appBarSlice.reducer;
+export default subjectSlice.reducer;

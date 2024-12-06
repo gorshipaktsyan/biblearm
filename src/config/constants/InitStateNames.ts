@@ -1,15 +1,13 @@
 const InitStateNames = {
-  appBar: 'appBar',
-  bookmarks: 'bookmarks',
-  content: 'content',
-  currentHymns: 'currentHymns',
-  drawer: 'drawer',
-  history: 'history',
-  hymns: 'hymns',
-  search: 'search',
-  settings: 'settings',
-  subtitles: 'subtitles',
-  titles: 'titles',
-  alphabeticalIndex: 'alphabeticalIndex'
+  appBar: "appBar",
+  bookmarks: "bookmarks",
+  currentBooks: "currentBooks",
+  books: "books",
+  search: "search",
+  settings: "settings",
+  subject: "subject",
+  verses: "verses",
+  currentVerses: "currentVerses",
+  chapter: "chapter",
 };
 export default InitStateNames;

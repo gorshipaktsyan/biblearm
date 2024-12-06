@@ -11,7 +11,7 @@ const initialState: ICurrentBookState = {
 };
 
 export const currentBookSlice = createSlice({
-  name: InitStateNames.currentHymns,
+  name: InitStateNames.currentBooks,
   initialState,
   reducers: {
     setCurrentBook: (state, action: PayloadAction<IBook>) => {

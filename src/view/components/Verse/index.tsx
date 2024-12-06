@@ -5,21 +5,21 @@ import StyledVerseComponents from "./styles";
 const { StyledVerse, StyledVerseNumber } = StyledVerseComponents;
 
 interface VerseProps {
-  id: string;
-  prefix: string;
-  number: string | number;
+  id: number;
+  prefix: string | null;
+  number: number;
   verse: string;
 }
 
-function Verse({ id, prefix, number, verse }: VerseProps) {
+function Verse({ prefix, number, verse }: VerseProps) {
   return (
-    <>
+    <Box>
       <Prefix prefix={prefix} />
       <StyledVerse>
         <StyledVerseNumber>{number}</StyledVerseNumber>
         <Box>{verse}</Box>
       </StyledVerse>
-    </>
+    </Box>
   );
 }
 

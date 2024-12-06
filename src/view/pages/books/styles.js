@@ -5,8 +5,9 @@ const BooksStyledComponents = {
   StyledContainer: styled(Box)({
     width: "100%",
     display: "flex",
-    justifyContent: "center",
     marginTop: 15,
+    flexDirection: "column",
+    alignItems: "center",
   }),
   StyledList: styled(Box)({
     maxWidth: "400px",

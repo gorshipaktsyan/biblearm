@@ -1,4 +1,5 @@
-import armenian from './armenian';
-import InitStateNames from './InitStateNames';
+import armenian, { ILanguageTypes } from "./armenian";
+import InitStateNames from "./InitStateNames";
 
 export { armenian, InitStateNames };
+export type { ILanguageTypes };

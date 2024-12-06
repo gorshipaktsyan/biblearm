@@ -1,7 +1,7 @@
 import StyledPrefixComponents from "./styles";
 
 interface PrefixProps {
-  prefix?: string;
+  prefix: string | null;
 }
 const { StyledPreFixBox, StyledPrefix } = StyledPrefixComponents;
 export default function Prefix({ prefix }: PrefixProps) {

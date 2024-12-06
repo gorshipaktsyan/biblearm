@@ -1,23 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { InitStateNames } from "../../config/constants";
-import { IVerse } from "../../types";
+import booksService from "../../services/booksService";
+import { IBook, IVerse } from "../../types";
 import versesService from "../../services/versesService";
 
-interface HymnsState {
+interface versesState {
   verses: IVerse[];
   filteredVerses: IVerse[];
 }
 
-const initialState: HymnsState = {
+const initialState: versesState = {
   verses: versesService.get() || [],
   filteredVerses: [],
 };
 
-export const hymnsSlice = createSlice({
-  name: InitStateNames.hymns,
+export const versesSlice = createSlice({
+  name: InitStateNames.verses,
   initialState,
   reducers: {},
 });
 
-export default hymnsSlice.reducer;
+export default versesSlice.reducer;

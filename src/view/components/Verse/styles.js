@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Box } from "@mui/material";
 
 const StyledVerseComponents = {
   StyledVerse: styled(Box)({
@@ -13,4 +14,4 @@ const StyledVerseComponents = {
   }),
 };
 
-export default StyledVerseComponents
+export default StyledVerseComponents;
