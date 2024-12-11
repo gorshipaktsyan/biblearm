@@ -1,24 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { InitStateNames } from "../../config/constants";
-import booksService from "../../services/booksService";
-import { IBook, IVerse } from "../../types";
+import { IVerse } from "../../types";
 import versesService from "../../services/versesService";
 
 interface versesState {
   verses: IVerse[];
-  filteredVerses: IVerse[];
+  currentVerses: IVerse[];
 }
 
 const initialState: versesState = {
   verses: versesService.get() || [],
-  filteredVerses: [],
+  currentVerses: [],
 };
 
 export const versesSlice = createSlice({
   name: InitStateNames.verses,
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentVerses: (state, action: PayloadAction<IVerse[]>) => {
+      state.currentVerses = action.payload;
+    },
+  },
 });
 
+export const { setCurrentVerses } = versesSlice.actions;
 export default versesSlice.reducer;

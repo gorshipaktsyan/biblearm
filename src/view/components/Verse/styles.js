@@ -3,9 +3,8 @@ import { Box } from "@mui/material";
 
 const StyledVerseComponents = {
   StyledVerse: styled(Box)({
-    maxWidth: "400px",
+    maxWidth: "700px",
     display: "flex",
-    justifyContent: "center",
     width: "100%",
   }),
   StyledVerseNumber: styled(Box)({

@@ -24,7 +24,7 @@ export interface ILanguageTypes {
   appBar: {
     copyAlert: string;
     newTestament: string;
-    chapterNameHeader: string;
+    header: string;
   };
   settings: {
     settings: string;
@@ -64,7 +64,7 @@ const armenian: ILanguageTypes = {
   appBar: {
     copyAlert: "Այս խոսքի հղումը պատճենվել է։",
     newTestament: "Նոր Կտակարան",
-    chapterNameHeader: "ԳԼՈՒԽ",
+    header: "ԳԼՈՒԽ",
   },
   settings: {
     settings: "Կարգավորումներ",

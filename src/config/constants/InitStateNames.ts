@@ -9,5 +9,6 @@ const InitStateNames = {
   verses: "verses",
   currentVerses: "currentVerses",
   chapter: "chapter",
+  currentChapter: "currentChapter"
 };
 export default InitStateNames;

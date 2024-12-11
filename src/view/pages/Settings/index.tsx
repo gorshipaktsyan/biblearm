@@ -9,7 +9,7 @@ import {
   setIsEngSearchVisible,
 } from "../../../redux/slice/settingsSlice";
 import { RootState } from "../../../redux/store";
-import { StyledComponents } from "../../styles";
+import StyledComponents from "../../styles";
 
 import SettingsStyledComponents from "./styles";
 

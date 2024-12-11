@@ -2,20 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { InitStateNames } from "../../config/constants";
 
-interface ITitle {
-  fullName: string;
-  chapterName: string;
-}
 interface IAppBarState {
-  title: ITitle;
+  title: string;
   isSaved: boolean;
 }
 
 const initialState: IAppBarState = {
-  title: {
-    fullName: "",
-    chapterName: "",
-  },
+  title: "",
   isSaved: false,
 };
 
@@ -23,7 +16,7 @@ export const appBarSlice = createSlice({
   name: InitStateNames.appBar,
   initialState,
   reducers: {
-    setAppBarTitle: (state, action: PayloadAction<ITitle>) => {
+    setAppBarTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload;
     },
     setIsSaved: (state, action: PayloadAction<boolean>) => {

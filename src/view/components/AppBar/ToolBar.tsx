@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 
@@ -10,18 +9,8 @@ import {
   Search,
 } from "@mui/icons-material/";
 import { Box, IconButton, Toolbar } from "@mui/material";
-
-import { setIsSaved } from "../../../redux/slice/appBarSlice";
-import { removeHymn, saveHymn } from "../../../redux/slice/bookmarksSlice";
-import { setIsDrawerOpen } from "../../../redux/slice/drawerSlice";
-import {
-  copyToClipboard,
-  formatDataForBookmarks,
-  setDataForBookmarks,
-  showBookmark,
-} from "../../../utils";
+import { copyToClipboard } from "../../../utils";
 import { useSelector } from "../../../utils/hooks";
-import SearchBar from "../SearchBar";
 import { RootState } from "../../../redux/store";
 
 interface IToolBar {
@@ -29,9 +18,9 @@ interface IToolBar {
 }
 
 export default function ToolBar({ setCopyAlert }: IToolBar) {
-  const { currentBook } = useSelector((state) => state.currentBook);
+  const currentBook = useSelector((state) => state.books.currentBook);
   const { title, isSaved } = useSelector((state) => state.appBar);
-  const { savedChapters } = useSelector((state) => state.bookmarks);
+  // const { savedChapters } = useSelector((state) => state.bookmarks);
   const { language } = useSelector((state: RootState) => state.settings);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
@@ -69,7 +58,6 @@ export default function ToolBar({ setCopyAlert }: IToolBar) {
       setCopyAlert(true);
     }
   }
-
   return (
     <Toolbar>
       <Box
@@ -77,10 +65,9 @@ export default function ToolBar({ setCopyAlert }: IToolBar) {
           fontSize: "20px",
           cursor: "default",
         }}
-        // dangerouslySetInnerHTML={{ __html: title }}
-        // onClick={handleTitleClick}
+        onClick={handleTitleClick}
       />
-      <Box sx={{ color: "#F5EB5B" }}> {language.appBar.newTestament}</Box>
+      <Box sx={{ color: "#F5EB5B" }}>{title}</Box>
       <Box
         sx={{
           flexGrow: "1",

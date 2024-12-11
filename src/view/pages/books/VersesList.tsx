@@ -1,24 +1,43 @@
-import { Box } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import BooksStyledComponents from "./styles";
-
-const { StyledList, StyledItem } = BooksStyledComponents;
+import { IVerse } from "../../../types";
+import { useNavigate } from "react-router-dom";
+import { setAppBarTitle } from "../../../redux/slice/appBarSlice";
+import setTitle from "../../../utils/setTitle";
+import { ListComponent } from "../../components/List";
 
 export default function VersesList() {
+  const dispatch = useDispatch();
   const { language } = useSelector((state: RootState) => state.settings);
-  const { currentVerses } = useSelector(
-    (state: RootState) => state.currentVerses
+  const currentVerses = useSelector(
+    (state: RootState) => state.verses.currentVerses
   );
-
+  const currentBook = useSelector(
+    (state: RootState) => state.books.currentBook
+  );
+  const currentChapter = useSelector(
+    (state: RootState) => state.currentChapter.currentChapter
+  );
+  const navigate = useNavigate();
+  function onVersesNumberClick() {
+    const title = setTitle({
+      currentBook,
+      currentChapter,
+      pathname: "/chapter",
+      lg: language,
+    });
+    dispatch(setAppBarTitle(title));
+    navigate("/chapter");
+  }
   return (
     <>
-      <Box sx={{ margin: "50px 0 15px 0" }}>{language.books.verses}</Box>
-      <StyledList>
-        {currentVerses.map((verse) => (
-          <StyledItem key={verse._id}>{verse.number}</StyledItem>
-        ))}
-      </StyledList>
+      <ListComponent<IVerse>
+        itemsArray={currentVerses}
+        activeItem={null}
+        onItemClick={onVersesNumberClick}
+        renderItem={(verse) => verse.number}
+        headerName={language.books.verses}
+      />
     </>
   );
 }

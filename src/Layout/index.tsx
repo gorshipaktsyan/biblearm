@@ -7,14 +7,15 @@ import Box from "@mui/material/Box";
 import App from "../App";
 import { setAppBarTitle } from "../redux/slice/appBarSlice";
 import { AppDispatch, RootState } from "../redux/store";
-import { setFontSize, setTitle } from "../utils";
+import { setFontSize } from "../utils";
 import { useDoubleTap } from "../utils/hooks";
 import AppBar from "../view/components/AppBar";
+import setTitle from "../utils/setTitle";
 
 function Layout() {
   const settings = useSelector((state: RootState) => state.settings);
   const currentBook = useSelector(
-    (state: RootState) => state.currentBook.currentBook
+    (state: RootState) => state.books.currentBook
   );
   const dispatch = useDispatch<AppDispatch>();
   const { pathname } = useLocation();
@@ -25,23 +26,19 @@ function Layout() {
     setFontSize(settings.fontSize);
   }, [settings.fontSize]);
 
-  // useEffect(() => {
-  //   const title = setTitle({
-  //     currentHymns,
-  //     pathname,
-  //     lg: settings.language,
-  //   });
-  //   title && dispatch(setAppBarTitle(title));
-  // }, [currentHymns, pathname, dispatch, settings.language]);
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname, currentBook]);
 
   return (
-    <Box sx={{ height: "100%" }}>
+    <Box
+      sx={{
+        minHeight: "100dvh",
+        backgroundColor: "#fdfde8",
+      }}
+    >
       <AppBar />
-      <Box className="container">
+      <Box sx={{ padding: "20px 0 100px 0" }}>
         <App />
       </Box>
     </Box>

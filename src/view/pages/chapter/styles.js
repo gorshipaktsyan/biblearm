@@ -10,7 +10,7 @@ const ChapterStyledComponents = {
     backgroundColor: "rgb(253, 253, 232)",
   }),
   StyledChapter: styled(Box)({
-    width: "400px",
+    maxWidth: "700px",
     display: "flex",
     flexDirection: "column",
     marginTop: "15px",

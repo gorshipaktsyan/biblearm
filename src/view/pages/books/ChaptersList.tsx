@@ -1,15 +1,20 @@
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { setCurrentVerses } from "../../../redux/slice/currentVersesSlice";
-import BooksStyledComponents from "./styles";
-
-const { StyledList, StyledItem } = BooksStyledComponents;
+import { setCurrentChapter } from "../../../redux/slice/currentChapterSlice";
+import { setCurrentVerses } from "../../../redux/slice/versesSlice";
+import { ListComponent } from "../../components/List";
 
 export default function ChaptersList() {
   const dispatch = useDispatch();
   const { verses } = useSelector((state: RootState) => state.verses);
-  const { currentBook } = useSelector((state: RootState) => state.currentBook);
+  const currentBook = useSelector(
+    (state: RootState) => state.books.currentBook
+  );
+  const language = useSelector((state: RootState) => state.settings.language);
+  const { currentChapter } = useSelector(
+    (state: RootState) => state.currentChapter
+  );
 
   const handleChapterClick = (currentChapter: number): void => {
     const filteredVerses = verses.filter(
@@ -17,23 +22,23 @@ export default function ChaptersList() {
         verse.chapter === currentChapter && verse.book_id === currentBook!._id
     );
     dispatch(setCurrentVerses(filteredVerses));
+    dispatch(setCurrentChapter(currentChapter));
   };
   return (
     <>
-      <Box sx={{ margin: "50px 0 15px 0" }}>{currentBook.full_name}</Box>
-      <StyledList>
-        {Array.from(
-          { length: currentBook.chapters! },
-          (_, index) => index + 1
-        ).map((chapter) => (
-          <StyledItem
-            key={chapter}
-            onClick={() => handleChapterClick(chapter!)}
-          >
-            {chapter}
-          </StyledItem>
-        ))}
-      </StyledList>
+      <Box sx={{ marginTop: "50px", fontWeight: "bold" }}>
+        {currentBook!.full_name}
+      </Box>
+      <ListComponent<number>
+        itemsArray={Array.from(
+          { length: currentBook?.chapters || 0 },
+          (_, i) => i + 1
+        )}
+        activeItem={currentChapter}
+        onItemClick={(chapter) => handleChapterClick(chapter)}
+        renderItem={(chapter) => chapter}
+        headerName={language.books.headers}
+      />
     </>
   );
 }

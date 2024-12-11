@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { AppBar, Snackbar } from "@mui/material";
 
-import { StyledComponents } from "../../styles";
+import StyledComponents from "../../styles";
 
 import ToolBar from "./ToolBar";
 import { useSelector } from "react-redux";
