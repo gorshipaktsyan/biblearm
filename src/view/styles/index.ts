@@ -2,6 +2,12 @@ import styled from "@emotion/styled";
 import { Alert, Box, Fab, List, Typography } from "@mui/material";
 
 const StyledComponents = {
+  StyledContainer: styled(Box)({
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  }),
   StyledBox: styled(Box)({
     display: "flex",
     justifyContent: "center",

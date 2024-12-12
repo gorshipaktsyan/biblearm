@@ -4,6 +4,7 @@ import { RootState } from "../../../redux/store";
 import { setCurrentChapter } from "../../../redux/slice/currentChapterSlice";
 import { setCurrentVerses } from "../../../redux/slice/versesSlice";
 import { ListComponent } from "../../components/List";
+import versesService from "../../../services/versesService";
 
 export default function ChaptersList() {
   const dispatch = useDispatch();
@@ -24,16 +25,17 @@ export default function ChaptersList() {
     dispatch(setCurrentVerses(filteredVerses));
     dispatch(setCurrentChapter(currentChapter));
   };
+  const chaptersArray = Array.from(
+    { length: currentBook?.chapters || 0 },
+    (_, i) => i + 1
+  );
   return (
     <>
       <Box sx={{ marginTop: "50px", fontWeight: "bold" }}>
         {currentBook!.full_name}
       </Box>
       <ListComponent<number>
-        itemsArray={Array.from(
-          { length: currentBook?.chapters || 0 },
-          (_, i) => i + 1
-        )}
+        itemsArray={chaptersArray}
         activeItem={currentChapter}
         onItemClick={(chapter) => handleChapterClick(chapter)}
         renderItem={(chapter) => chapter}

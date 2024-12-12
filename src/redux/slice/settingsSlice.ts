@@ -8,18 +8,18 @@ import {
 
 interface SettingsState {
   fontSize: number;
-  isEngSearchVisible: boolean;
   isAllowToUseArrows: boolean;
   isMobile: boolean;
   language: ILanguageTypes;
+  isNightShiftEnabled: boolean;
 }
 
 const initialState: SettingsState = {
   fontSize: 1,
-  isEngSearchVisible: false,
   isAllowToUseArrows: false,
   isMobile: navigator.maxTouchPoints > 0,
   language: armenian,
+  isNightShiftEnabled: false,
 };
 
 export const settingsSlice = createSlice({
@@ -29,16 +29,16 @@ export const settingsSlice = createSlice({
     changeFontSize: (state, action: PayloadAction<number>) => {
       state.fontSize = Number(action.payload.toFixed(1));
     },
-    setIsEngSearchVisible: (state, action: PayloadAction<boolean>) => {
-      state.isEngSearchVisible = action.payload;
-    },
     setIsAllowToUseArrows: (state, action: PayloadAction<boolean>) => {
       state.isAllowToUseArrows = action.payload;
+    },
+    toggleNightShift: (state) => {
+      state.isNightShiftEnabled = !state.isNightShiftEnabled;
     },
   },
 });
 
-export const { changeFontSize, setIsEngSearchVisible, setIsAllowToUseArrows } =
+export const { changeFontSize, setIsAllowToUseArrows, toggleNightShift } =
   settingsSlice.actions;
 
 export default settingsSlice.reducer;

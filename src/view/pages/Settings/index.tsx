@@ -6,7 +6,7 @@ import { Divider, Slider, Switch } from "@mui/material";
 import {
   changeFontSize,
   setIsAllowToUseArrows,
-  setIsEngSearchVisible,
+  toggleNightShift,
 } from "../../../redux/slice/settingsSlice";
 import { RootState } from "../../../redux/store";
 import StyledComponents from "../../styles";
@@ -18,9 +18,7 @@ const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } =
   SettingsStyledComponents;
 
 export default function Settings() {
-  const { fontSize, language } = useSelector(
-    (state: RootState) => state.settings
-  );
+  const settings = useSelector((state: RootState) => state.settings);
 
   const dispatch = useDispatch();
 
@@ -33,24 +31,30 @@ export default function Settings() {
   function handleChangeArrows(e: ChangeEvent<HTMLInputElement>): void {
     dispatch(setIsAllowToUseArrows(e.target.checked));
   }
-
-  function handleChangeEngSearch(e: ChangeEvent<HTMLInputElement>): void {
-    dispatch(setIsEngSearchVisible(e.target.checked));
+  function handleToggleNightShift(): void {
+    dispatch(toggleNightShift());
   }
 
   return (
     <StyledBox onTouchStart={(e) => e.stopPropagation()}>
       <StyledSetList>
         <StyledSetListItem>
-          <StyledSetTpg>{language.settings.fontSize}</StyledSetTpg>
+          <StyledSetTpg>{settings.language.settings.fontSize}</StyledSetTpg>
           <Slider
             aria-label="Font size"
-            value={fontSize && fontSize}
+            value={settings.fontSize && settings.fontSize}
             onChange={handleChangeFontSize}
             step={0.1}
             marks
             min={1}
             max={1.8}
+          />
+        </StyledSetListItem>
+        <StyledSetListItem>
+          <StyledSetTpg>{settings.language.settings.nightMode}</StyledSetTpg>
+          <Switch
+            checked={settings.isNightShiftEnabled}
+            onChange={handleToggleNightShift}
           />
         </StyledSetListItem>
       </StyledSetList>

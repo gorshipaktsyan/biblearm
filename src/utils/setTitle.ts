@@ -16,8 +16,10 @@ export default function setTitle({
   pathname,
   lg,
 }: SetTitle): string {
-  if (pathname === "/chapter") {
-    return `${currentBook?.name} - ${currentChapter} ${lg.appBar.header}`;
+  if (pathname.includes("/chapter")) {
+    return `${currentBook!.abbreviation} - ${currentChapter} ${
+      lg.appBar.header
+    }`;
   } else {
     const navItems = createNavItems(lg);
     const selectedItem = navItems.find((item) => `/${item.route}` === pathname);

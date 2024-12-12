@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import {
   Bookmark,
   BookmarkBorder,
-  Menu,
   Settings,
   Search,
+  Bookmarks,
 } from "@mui/icons-material/";
 import { Box, IconButton, Toolbar } from "@mui/material";
 import { copyToClipboard } from "../../../utils";
@@ -24,7 +24,7 @@ export default function ToolBar({ setCopyAlert }: IToolBar) {
   const { language } = useSelector((state: RootState) => state.settings);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   // useEffect(() => {
   //   if (currentHymnNumber) {
   //     const formattedData = formatDataForBookmarks({
@@ -51,7 +51,12 @@ export default function ToolBar({ setCopyAlert }: IToolBar) {
   //     }
   //   }
   // }
-
+  function handleBookmarksClick() {
+    navigate("/bookmarks");
+  }
+  function handleSettingsClick() {
+    navigate("/settings");
+  }
   function handleTitleClick() {
     if (pathname.includes(`/hymns`)) {
       copyToClipboard(window.location.href);
@@ -77,10 +82,13 @@ export default function ToolBar({ setCopyAlert }: IToolBar) {
         }}
       >
         <IconButton>
+          <Search sx={{ color: "white" }}></Search>
+        </IconButton>
+        <IconButton onClick={handleSettingsClick}>
           <Settings sx={{ color: "white" }}></Settings>
         </IconButton>
-        <IconButton>
-          <Search sx={{ color: "white" }}></Search>
+        <IconButton onClick={handleBookmarksClick}>
+          <Bookmarks sx={{ color: "white" }}></Bookmarks>
         </IconButton>
       </Box>
       {pathname === "/chapter" && (

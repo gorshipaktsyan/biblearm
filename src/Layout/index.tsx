@@ -27,8 +27,22 @@ function Layout() {
   }, [settings.fontSize]);
 
   useEffect(() => {
+    document.body.classList.toggle("night-mode", settings.isNightShiftEnabled);
+  }, [settings.isNightShiftEnabled]);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname, currentBook]);
+
+  useEffect(() => {
+    const title = setTitle({
+      currentBook: null,
+      currentChapter: null,
+      pathname,
+      lg: settings.language,
+    });
+    dispatch(setAppBarTitle(title));
+  }, []);
 
   return (
     <Box

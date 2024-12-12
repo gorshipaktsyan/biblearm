@@ -23,11 +23,11 @@ export default function VersesList() {
     const title = setTitle({
       currentBook,
       currentChapter,
-      pathname: "/chapter",
+      pathname: `/chapter`,
       lg: language,
     });
     dispatch(setAppBarTitle(title));
-    navigate("/chapter");
+    navigate(`/chapter/${currentBook!.code}/${currentChapter}`);
   }
   return (
     <>

@@ -1,74 +1,76 @@
-import { useEffect } from "react";
-import ChapterStyledComponents from "./styles";
-import ChapterHeader from "./ChapterHeader";
-import Verse from "../../components/Verse";
-import { Divider } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import { SwipeableHandlers, useSwipeable } from "react-swipeable";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { swipeConfig } from "../../../config";
-import Subject from "../../components/Subject";
+import Subject from "./Subject";
 import { useSelector } from "../../../utils/hooks";
 import versesService from "../../../services/versesService";
 import { RootState } from "../../../redux/store";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Verse from "./Verse";
+import StyledComponents from "../../styles";
+import ArrowBackIconComponent from "./ArrowBackIcon";
+import Prefix from "./Prefix";
+import PaginationComponent from "./PaginationComponent";
+import { setCurrentVerses } from "../../../redux/slice/versesSlice";
+import useSwipeNavigation from "../../../utils/hooks/useSwipeNavigation";
+import { useEffect } from "react";
+import { IVerse } from "../../../types";
+import { useDispatch } from "react-redux";
+import booksService from "../../../services/booksService";
 
-const { StyledChapter, StyledContainer, StyledFab } = ChapterStyledComponents;
+const { StyledContainer } = StyledComponents;
 
 export default function Chapter() {
   const navigate = useNavigate();
-  const currentBook = useSelector(
-    (state: RootState) => state.books.currentBook
-  );
-  const currentChapter = useSelector(
-    (state: RootState) => state.currentChapter.currentChapter
-  );
+  const dispatch = useDispatch();
+  const { book, chapter } = useParams();
   const currentVerses = useSelector(
     (state: RootState) => state.verses.currentVerses
   );
-  const chapterName: string =
-    currentChapter === 1
-      ? `${currentChapter}-ԻՆ ԳԼՈՒԽ`
-      : `${currentChapter}-ՐԴ ԳԼՈՒԽ`;
+  const currentBook = booksService.findBook(book!);
+  const currentChapter = parseInt(chapter!);
 
-  // useEffect(() => {
-  //   setChapterVerses(
-  //     versesService.getChapterVerses(currentBook, currentChapter)
-  //   );
-  // }, [currentChapter, currentBook]);
+  useEffect(() => {
+    if (book && chapter) {
+      if (currentBook) {
+        const filteredVerses = versesService.getChapterVerses(
+          currentBook._id,
+          currentChapter
+        );
+        dispatch(setCurrentVerses(filteredVerses));
+      }
+    }
+  }, [chapter]);
 
-  // const { handleLeftSwipe, handleRightSwipe, handlers } = useSwipeNavigation({
-  //   currentBook,
-  //   navigate,
-  // });
+  const { handleLeftSwipe, handleRightSwipe, handlers } = useSwipeNavigation({
+    currentBook: currentBook!,
+    currentChapter,
+    navigate,
+  });
   return (
-    <StyledContainer
-    // {...handlers}
-    >
+    <StyledContainer {...handlers}>
       <StyledChapter>
-        <ChapterHeader
-          fullName={currentBook!.full_name}
-          chapterName={chapterName}
-        />
-        <Divider />
         {currentChapter === 1 && <Subject subject={currentBook!.subject} />}
         {currentVerses.map((verse) => {
           return (
-            <Verse
-              id={verse._id}
-              prefix={verse.prefix}
-              number={verse.number}
-              verse={verse.verse}
-            />
+            <>
+              {verse.prefix && (
+                <Prefix key={verse.prefix} prefix={verse.prefix} />
+              )}
+              <Verse key={verse._id} verse={verse} />
+            </>
           );
         })}
+        <PaginationComponent />
       </StyledChapter>
-      <StyledFab onClick={() => navigate("/")}>
-        <ArrowBackIcon
-          sx={{
-            color: "white",
-          }}
-        />
-      </StyledFab>
+      <ArrowBackIconComponent />
     </StyledContainer>
   );
 }
+
+const StyledChapter = styled(Box)({
+  maxWidth: "700px",
+  display: "flex",
+  flexDirection: "column",
+  marginBottom: "50px",
+});

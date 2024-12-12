@@ -9,7 +9,7 @@ const routes = [
     element: <Books />,
   },
   {
-    path: "/chapter",
+    path: "/chapter/:book/:chapter",
     element: <Chapter />,
   },
   {

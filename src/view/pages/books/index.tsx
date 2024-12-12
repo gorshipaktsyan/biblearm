@@ -1,4 +1,3 @@
-import BooksStyledComponents from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import ChaptersList from "./ChaptersList";
@@ -9,8 +8,9 @@ import setTitle from "../../../utils/setTitle";
 
 import { BookList } from "./BookList";
 import { Box } from "@mui/material";
+import StyledComponents from "../../styles";
 
-const { StyledContainer } = BooksStyledComponents;
+const { StyledContainer } = StyledComponents;
 
 export default function Books() {
   const dispatch = useDispatch();
@@ -21,16 +21,6 @@ export default function Books() {
     (state: RootState) => state.verses.currentVerses
   );
   const language = useSelector((state: RootState) => state.settings.language);
-
-  useEffect(() => {
-    const title = setTitle({
-      currentBook: null,
-      currentChapter: null,
-      pathname: "/",
-      lg: language,
-    });
-    dispatch(setAppBarTitle(title));
-  }, []);
 
   return (
     <>
