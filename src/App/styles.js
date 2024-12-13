@@ -3,7 +3,6 @@ import { Box } from "@mui/material";
 
 const StyledApp = styled(Box)({
   minHeight: "100dvh",
-  backgroundColor: "#fdfde8",
   paddingTop: "64px",
 });
 

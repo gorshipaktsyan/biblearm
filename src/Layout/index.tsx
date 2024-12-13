@@ -27,10 +27,6 @@ function Layout() {
   }, [settings.fontSize]);
 
   useEffect(() => {
-    document.body.classList.toggle("night-mode", settings.isNightShiftEnabled);
-  }, [settings.isNightShiftEnabled]);
-
-  useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname, currentBook]);
 
@@ -48,7 +44,8 @@ function Layout() {
     <Box
       sx={{
         minHeight: "100dvh",
-        backgroundColor: "#fdfde8",
+        backgroundColor: settings.isNightShiftEnabled ? "#121212" : "#fdfde8",
+        color: settings.isNightShiftEnabled ? "#ffffff" : "#000000",
       }}
     >
       <AppBar />
