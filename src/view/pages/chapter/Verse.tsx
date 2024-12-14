@@ -1,5 +1,4 @@
 import { Box, styled } from "@mui/material";
-import Prefix from "./Prefix";
 import { IVerse } from "../../../types";
 
 interface VerseProps {
@@ -8,7 +7,7 @@ interface VerseProps {
 
 export default function Verse({ verse }: VerseProps) {
   return (
-    <StyledVerse>
+    <StyledVerse id={`verse-${verse.number}`}>
       <StyledVerseNumber>{verse.number}</StyledVerseNumber>
       <Box>{verse.verse}</Box>
     </StyledVerse>

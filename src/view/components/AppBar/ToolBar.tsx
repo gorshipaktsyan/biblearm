@@ -13,6 +13,7 @@ import { Box, IconButton, Toolbar } from "@mui/material";
 import { copyToClipboard } from "../../../utils";
 import { useSelector } from "../../../utils/hooks";
 import { RootState } from "../../../redux/store";
+import styled from "@emotion/styled";
 
 interface IToolBar {
   setCopyAlert: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,7 +22,6 @@ interface IToolBar {
 export default function ToolBar({ setCopyAlert }: IToolBar) {
   const currentBook = useSelector((state) => state.books.currentBook);
   const { title, isSaved } = useSelector((state) => state.appBar);
-  const { language } = useSelector((state: RootState) => state.settings);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,28 +39,8 @@ export default function ToolBar({ setCopyAlert }: IToolBar) {
 
   return (
     <Toolbar>
-      {/* Title Section */}
-      <Box
-        sx={{
-          fontSize: "20px",
-          cursor: "pointer",
-          color: "white",
-        }}
-        onClick={handleTitleClick}
-      >
-        {title}
-      </Box>
-
-      {/* Action Icons Section */}
-      <Box
-        sx={{
-          flexGrow: 1,
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "center",
-          gap: 1,
-        }}
-      >
+      <StyledTitle onClick={handleTitleClick}>{title}</StyledTitle>
+      <StyledIconBox>
         {pathname !== "/" && (
           <IconButton aria-label="Books" onClick={() => handleNavigation("/")}>
             <MenuBook sx={{ color: "white" }} />
@@ -90,9 +70,8 @@ export default function ToolBar({ setCopyAlert }: IToolBar) {
             <Bookmarks sx={{ color: "white" }} />
           </IconButton>
         )}
-      </Box>
+      </StyledIconBox>
 
-      {/* Bookmark Icon Section */}
       {pathname === "/chapter" && currentBook && (
         <IconButton
           aria-label={isSaved ? "Remove Bookmark" : "Add Bookmark"}
@@ -110,3 +89,16 @@ export default function ToolBar({ setCopyAlert }: IToolBar) {
     </Toolbar>
   );
 }
+
+const StyledTitle = styled(Box)({
+  fontSize: "20px",
+  cursor: "pointer",
+  color: "#F5EB5B",
+});
+const StyledIconBox = styled(Box)({
+  flexGrow: 1,
+  display: "flex",
+  justifyContent: "flex-end",
+  alignItems: "center",
+  gap: 1,
+});

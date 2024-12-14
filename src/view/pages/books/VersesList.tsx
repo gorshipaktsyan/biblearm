@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { setAppBarTitle } from "../../../redux/slice/appBarSlice";
 import setTitle from "../../../utils/setTitle";
 import { ListComponent } from "../../components/List";
+import { setClickedVerse } from "../../../redux/slice/versesSlice";
 
 export default function VersesList() {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default function VersesList() {
     (state: RootState) => state.currentChapter.currentChapter
   );
   const navigate = useNavigate();
-  function onVersesNumberClick() {
+  function onVersesNumberClick(verse: IVerse) {
     const title = setTitle({
       currentBook,
       currentChapter,
@@ -27,6 +28,7 @@ export default function VersesList() {
       lg: language,
     });
     dispatch(setAppBarTitle(title));
+    dispatch(setClickedVerse(verse.number));
     navigate(`/chapter/${currentBook!.code}/${currentChapter}`);
   }
   return (

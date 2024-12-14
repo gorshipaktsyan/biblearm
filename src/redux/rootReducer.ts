@@ -5,8 +5,8 @@ import booksReducer from "./slice/booksSlice";
 import searchReducer from "./slice/searchSlice";
 import settingsReducer from "./slice/settingsSlice";
 import appBarReducer from "./slice/appBarSlice";
-import versesReducer from "./slice/versesSlice";
 import currentChapterReducer from "./slice/currentChapterSlice";
+import versesReducer from "./slice/versesSlice";
 
 const rootReducer = combineReducers({
   bookmarks: bookmarksReducer,
