@@ -31,6 +31,10 @@ export interface ILanguageTypes {
     nightMode: string;
     fontSize: string;
   };
+  pagination: {
+    back: string;
+    forward: string;
+  };
 }
 
 const armenian: ILanguageTypes = {
@@ -70,6 +74,10 @@ const armenian: ILanguageTypes = {
     settings: "Կարգավորումներ",
     nightMode: "Գիշերային ռեժիմ",
     fontSize: "Տառատեսակի չափը",
+  },
+  pagination: {
+    back: "Հետ",
+    forward: "Առաջ",
   },
 };
 

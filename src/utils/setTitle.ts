@@ -15,14 +15,15 @@ export default function setTitle({
   currentChapter,
   pathname,
   lg,
-}: SetTitle): string {
-  if (pathname.includes("/chapter")) {
-    return `${currentBook!.abbreviation} - ${currentChapter} ${
-      lg.appBar.header
-    }`;
+}: SetTitle): string | undefined {
+  if (
+    currentBook &&
+    pathname === `/chapter/${currentBook.code}/${currentChapter}`
+  ) {
+    return `${currentBook.abbreviation} - ${currentChapter} ${lg.appBar.header}`;
   } else {
     const navItems = createNavItems(lg);
     const selectedItem = navItems.find((item) => `/${item.route}` === pathname);
-    return selectedItem!.title;
+    return selectedItem && selectedItem.title;
   }
 }

@@ -1,9 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
+import { Box, CssBaseline, styled } from "@mui/material";
 import routes from "../routes";
-import StyledApp from "./styles";
 
-function App(){
+function App() {
   return (
     <StyledApp>
       <CssBaseline />
@@ -14,6 +13,11 @@ function App(){
       </Routes>
     </StyledApp>
   );
-};
+}
 
 export default App;
+
+const StyledApp = styled(Box)({
+  minHeight: "100dvh",
+  padding: "100px 0 100px 0",
+});

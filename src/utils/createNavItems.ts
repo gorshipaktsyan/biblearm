@@ -7,7 +7,6 @@ interface INavItem {
 function createNavItems(lg: ILanguageTypes): INavItem[] {
   const navItems = [
     { title: lg.appBar.newTestament, route: "" },
-    { title: lg.navItems.bookmark, route: "bookmark" },
     { title: lg.settings.settings, route: "settings" },
   ];
   return navItems;

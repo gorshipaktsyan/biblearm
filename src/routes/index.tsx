@@ -1,25 +1,18 @@
-import { Books } from "../view/pages";
-import Chapter from "../view/pages/Chapter";
-import Settings from "../view/pages/Settings";
-// import Bookmarks from "../view/pages/Bookmarks";
+import { Home, Chapter, Settings } from "../view/pages";
 
 const routes = [
   {
     path: "/",
-    element: <Books />,
+    element: <Home />,
   },
   {
-    path: "/chapter/:book/:chapter",
+    path: "/chapter/:bookCode/:chapter",
     element: <Chapter />,
   },
   {
     path: "/settings",
     element: <Settings />,
   },
-  // {
-  //   path: "/bookmark",
-  //   element: <Bookmarks />,
-  // },
 ];
 
 export default routes;

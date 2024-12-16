@@ -1,9 +1,13 @@
 import { IVerse } from "../types";
 import verses from "./storage/verses.json";
 
+interface IGetChapterVerses {
+  bookId: number;
+  chapter: number;
+}
 interface IVersesService {
   get: () => IVerse[];
-  getChapterVerses: (bookId: number, chapter: number) => IVerse[];
+  getChapterVerses: (args: IGetChapterVerses) => IVerse[];
 }
 
 class VersesService implements IVersesService {
@@ -16,7 +20,7 @@ class VersesService implements IVersesService {
   get(): IVerse[] {
     return this.verses;
   }
-  getChapterVerses(bookId: number, chapter: number): IVerse[] {
+  getChapterVerses({ bookId, chapter }: IGetChapterVerses): IVerse[] {
     return this.verses.filter(
       (verse) => verse.chapter === chapter && verse.book_id === bookId
     );

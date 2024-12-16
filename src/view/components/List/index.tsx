@@ -1,6 +1,6 @@
+import { ListHeader } from "./ListHeader";
+import styled from "@emotion/styled";
 import { Box } from "@mui/material";
-import { IBook, IVerse } from "../../../types";
-import StyledListComponents from "./styles";
 
 interface IListComponent<T> {
   itemsArray: T[];
@@ -10,9 +10,7 @@ interface IListComponent<T> {
   headerName: string;
 }
 
-const { StyledList, StyledItem } = StyledListComponents;
-
-export function ListComponent<T>({
+export default function ListComponent<T>({
   itemsArray,
   activeItem,
   onItemClick,
@@ -21,9 +19,7 @@ export function ListComponent<T>({
 }: IListComponent<T>) {
   return (
     <>
-      <Box sx={{ fontWeight: "bold", margin: "30px 0 15px 0" }}>
-        {headerName}
-      </Box>
+      <ListHeader headerName={headerName} />
       <StyledList>
         {itemsArray.map((item, index) => (
           <StyledItem
@@ -38,3 +34,25 @@ export function ListComponent<T>({
     </>
   );
 }
+
+const StyledList = styled(Box)({
+  maxWidth: "700px",
+  display: "flex",
+  justifyContent: "center",
+  flexWrap: "wrap",
+  width: "100%",
+});
+const StyledItem = styled(Box)({
+  padding: "10px 5px",
+  fontSize: "20px",
+  width: "80px",
+  height: "40px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  "&:hover": {
+    backgroundColor: "#f0f0dc",
+    cursor: "pointer",
+  },
+});

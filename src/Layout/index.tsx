@@ -7,15 +7,16 @@ import Box from "@mui/material/Box";
 import App from "../App";
 import { setAppBarTitle } from "../redux/slice/appBarSlice";
 import { AppDispatch, RootState } from "../redux/store";
-import { setFontSize } from "../utils";
+import { setFontSize, setTitle } from "../utils";
 import { useDoubleTap } from "../utils/hooks";
 import AppBar from "../view/components/AppBar";
-import setTitle from "../utils/setTitle";
+import styled from "@emotion/styled";
 
 function Layout() {
   const settings = useSelector((state: RootState) => state.settings);
-  const currentBook = useSelector(
-    (state: RootState) => state.books.currentBook
+  const { currentBook } = useSelector((state: RootState) => state.books);
+  const { currentChapter } = useSelector(
+    (state: RootState) => state.currentChapter
   );
   const dispatch = useDispatch<AppDispatch>();
   const { pathname } = useLocation();
@@ -32,27 +33,24 @@ function Layout() {
 
   useEffect(() => {
     const title = setTitle({
-      currentBook: null,
-      currentChapter: null,
+      currentBook,
+      currentChapter,
       pathname,
       lg: settings.language,
     });
-    dispatch(setAppBarTitle(title));
-  }, []);
+    title && dispatch(setAppBarTitle(title));
+  }, [currentBook, currentChapter, pathname, settings.language, dispatch]);
 
+  const StyledLayout = styled(Box)({
+    minHeight: "100dvh",
+    backgroundColor: settings.isNightShiftEnabled ? "#121212" : "#fdfde8",
+    color: settings.isNightShiftEnabled ? "#ffffff" : "#000000",
+  });
   return (
-    <Box
-      sx={{
-        minHeight: "100dvh",
-        backgroundColor: settings.isNightShiftEnabled ? "#121212" : "#fdfde8",
-        color: settings.isNightShiftEnabled ? "#ffffff" : "#000000",
-      }}
-    >
+    <StyledLayout>
       <AppBar />
-      <Box sx={{ padding: "20px 0 100px 0" }}>
-        <App />
-      </Box>
-    </Box>
+      <App />
+    </StyledLayout>
   );
 }
 export default Layout;

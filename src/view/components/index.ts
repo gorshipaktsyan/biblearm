@@ -1,5 +1,5 @@
 import AppBar from "./AppBar";
-import ListItem from "./ListItem";
+import ListComponent from "./List";
 import SearchBar from "./SearchBar";
 
-export { AppBar, ListItem, SearchBar };
+export { AppBar, ListComponent, SearchBar };

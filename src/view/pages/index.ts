@@ -1,4 +1,4 @@
-import Books from "./Books";
+import Home from "./Home";
 import Chapter from "./Chapter";
 import Settings from "./Settings";
-export { Books, Chapter, Settings };
+export { Home, Chapter, Settings };

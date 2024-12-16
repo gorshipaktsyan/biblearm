@@ -1,44 +1,75 @@
 import { Box, Pagination, PaginationItem } from "@mui/material";
 import { styled } from "@mui/system";
+import { useNavigate } from "react-router";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { IBook } from "../../../types";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { setCurrentChapter } from "../../../redux/slice/currentChapterSlice";
 
 interface PaginationComponentProps {
-  totalChapters: number; // Total number of chapters
-  currentChapter: number; // Current chapter number
+  currentChapter: number;
+  currentBook: IBook;
 }
 
 export default function PaginationComponent({
-  totalChapters,
   currentChapter,
+  currentBook,
 }: PaginationComponentProps) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { language } = useSelector((state: RootState) => state.settings);
+
+  function handleChange(e: React.ChangeEvent<unknown>, value: number) {
+    dispatch(setCurrentChapter(value));
+    navigate(`/chapter/${currentBook.code}/${value}`);
+  }
+
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-      {/* Left Side Label */}
-      <Box sx={{ marginRight: 2, fontWeight: "bold", fontSize: "1rem" }}>
-        Հետ
-      </Box>
-
-      {/* Pagination Component */}
+    <StyledPaginationBox>
       <StyledPagination
-        count={totalChapters}
+        count={currentBook.chapters}
         page={currentChapter}
-        // onChange={onChange}
+        onChange={handleChange}
         size="large"
-        siblingCount={0} // Only show the current page
-        boundaryCount={totalChapters} // Show all pages without ellipsis
-        renderItem={(item) => <PaginationItem {...item} />}
+        siblingCount={0}
+        boundaryCount={currentBook.chapters}
+        renderItem={(item) => (
+          <PaginationItem
+            {...item}
+            components={{
+              previous: () => (
+                <StyledPaginationItem>
+                  <NavigateBeforeIcon />
+                  {language.pagination.back}
+                </StyledPaginationItem>
+              ),
+              next: () => (
+                <StyledPaginationItem>
+                  {language.pagination.forward}
+                  <NavigateNextIcon />
+                </StyledPaginationItem>
+              ),
+            }}
+          />
+        )}
       />
-
-      {/* Right Side Label */}
-      <Box sx={{ marginLeft: 2, fontWeight: "bold", fontSize: "1rem" }}>
-        Առաջ
-      </Box>
-    </Box>
+    </StyledPaginationBox>
   );
 }
 
 const StyledPagination = styled(Pagination)({
   "& .MuiPaginationItem-root": {
-    fontSize: "1rem", // Adjust font size if needed
-    minWidth: "32px", // Ensure consistent button width
+    minWidth: "32px",
   },
+});
+const StyledPaginationBox = styled(Box)({
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "15px",
+});
+const StyledPaginationItem = styled(Box)({
+  display: "flex",
+  alignItems: "center",
 });

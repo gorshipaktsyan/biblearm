@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { InitStateNames } from "../../config/constants";
 import booksService from "../../services/booksService";
 import { IBook } from "../../types";
-
 interface IBooksState {
   books: IBook[];
   currentBook: IBook | null;

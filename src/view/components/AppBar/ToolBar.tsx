@@ -1,12 +1,11 @@
-import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import {
   Bookmark,
   BookmarkBorder,
   Settings,
   Search,
-  Bookmarks,
+  Book,
   MenuBook,
 } from "@mui/icons-material";
 import { Box, IconButton, Toolbar } from "@mui/material";
@@ -14,28 +13,58 @@ import { copyToClipboard } from "../../../utils";
 import { useSelector } from "../../../utils/hooks";
 import { RootState } from "../../../redux/store";
 import styled from "@emotion/styled";
+import { useDispatch } from "react-redux";
+import { saveBook, unSaveBook } from "../../../redux/slice/savedBookSlice";
+import booksService from "../../../services/booksService";
+import { setIsSaved } from "../../../redux/slice/appBarSlice";
+import { useEffect } from "react";
 
 interface IToolBar {
   setCopyAlert: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function ToolBar({ setCopyAlert }: IToolBar) {
-  const currentBook = useSelector((state) => state.books.currentBook);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { currentBook } = useSelector((state: RootState) => state.books);
+  const { currentChapter } = useSelector(
+    (state: RootState) => state.currentChapter
+  );
+  const savedBook = useSelector((state: RootState) => state.savedBook);
   const { title, isSaved } = useSelector((state) => state.appBar);
   const { pathname } = useLocation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const handleNavigation = (route: string) => {
+  function handleNavigation(route: string) {
     navigate(route);
-  };
+  }
 
-  const handleTitleClick = () => {
-    if (pathname.includes(`/hymns`)) {
+  useEffect(() => {
+    if (currentBook) {
+      const isBookmarked =
+        savedBook.bookCode === currentBook.code &&
+        savedBook.currentChapter === currentChapter;
+      dispatch(setIsSaved(isBookmarked));
+    }
+  }, [currentBook, savedBook, dispatch]);
+
+  function handleTitleClick() {
+    if (pathname.includes(`/chapter`)) {
       copyToClipboard(window.location.href);
       setCopyAlert(true);
     }
-  };
+  }
+
+  function handleBookmarkClick() {
+    if (currentBook) {
+      if (!isSaved) {
+        dispatch(saveBook({ bookCode: currentBook.code, currentChapter }));
+        dispatch(setIsSaved(true));
+      } else {
+        dispatch(unSaveBook());
+        dispatch(setIsSaved(false));
+      }
+    }
+  }
 
   return (
     <Toolbar>
@@ -62,22 +91,24 @@ export default function ToolBar({ setCopyAlert }: IToolBar) {
             <Settings sx={{ color: "white" }} />
           </IconButton>
         )}
-        {pathname !== "/bookmarks" && (
+        {pathname === "/" && savedBook.bookCode && (
           <IconButton
-            aria-label="Bookmarks"
-            onClick={() => handleNavigation("/bookmarks")}
+            aria-label="SavedBook"
+            onClick={() =>
+              handleNavigation(
+                `/chapter/${savedBook!.bookCode}/${savedBook!.currentChapter}`
+              )
+            }
           >
-            <Bookmarks sx={{ color: "white" }} />
+            <Book sx={{ color: "white" }} />
           </IconButton>
         )}
       </StyledIconBox>
 
-      {pathname === "/chapter" && currentBook && (
+      {pathname.includes("/chapter") && (
         <IconButton
           aria-label={isSaved ? "Remove Bookmark" : "Add Bookmark"}
-          onClick={() => {
-            // Implement your bookmark handler logic here
-          }}
+          onClick={handleBookmarkClick}
         >
           {isSaved ? (
             <Bookmark sx={{ fontSize: "30px", color: "white" }} />
