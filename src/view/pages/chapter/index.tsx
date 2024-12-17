@@ -5,7 +5,10 @@ import { swipeConfig } from "../../../config";
 import { useSelector, useSwipeNavigation } from "../../../utils/hooks";
 import { RootState } from "../../../redux/store";
 import StyledComponents from "../../styles";
-import { setCurrentVerses } from "../../../redux/slice/versesSlice";
+import {
+  setClickedVerse,
+  setCurrentVerses,
+} from "../../../redux/slice/versesSlice";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { booksService, versesService } from "../../../services";
@@ -35,7 +38,7 @@ export default function Chapter() {
 
   useEffect(() => {
     if (bookCode && chapter) {
-      const foundBook = booksService.findBook(bookCode!);
+      const foundBook = booksService.findBookByCode(bookCode!);
       if (!foundBook) {
         navigate("/");
       }
@@ -51,6 +54,7 @@ export default function Chapter() {
         scrollToVerse(filteredVerses[0].number);
       }
     }
+    dispatch(setClickedVerse(null));
   }, [chapter]);
 
   useEffect(() => {
@@ -59,8 +63,8 @@ export default function Chapter() {
       setTimeout(() => {
         setActiveVerse(null);
       }, 2000);
+      scrollToVerse(clickedVerse);
     }
-    scrollToVerse(clickedVerse);
   }, [clickedVerse]);
 
   const { handleLeftSwipe, handleRightSwipe, handlers } = useSwipeNavigation({

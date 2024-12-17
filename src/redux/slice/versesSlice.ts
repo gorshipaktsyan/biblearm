@@ -7,13 +7,13 @@ import versesService from "../../services/versesService";
 interface versesState {
   verses: IVerse[];
   currentVerses: IVerse[];
-  clickedVerse: number;
+  clickedVerse: number | null;
 }
 
 const initialState: versesState = {
   verses: versesService.get() || [],
   currentVerses: [],
-  clickedVerse: 1,
+  clickedVerse: null,
 };
 
 export const versesSlice = createSlice({
@@ -23,7 +23,7 @@ export const versesSlice = createSlice({
     setCurrentVerses: (state, action: PayloadAction<IVerse[]>) => {
       state.currentVerses = action.payload;
     },
-    setClickedVerse: (state, action: PayloadAction<number>) => {
+    setClickedVerse: (state, action: PayloadAction<number | null>) => {
       state.clickedVerse = action.payload;
     },
   },

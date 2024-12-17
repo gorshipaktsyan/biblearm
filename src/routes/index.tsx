@@ -1,4 +1,4 @@
-import { Home, Chapter, Settings } from "../view/pages";
+import { Home, Chapter, Settings, Search } from "../view/pages";
 
 const routes = [
   {
@@ -12,6 +12,10 @@ const routes = [
   {
     path: "/settings",
     element: <Settings />,
+  },
+  {
+    path: "/search",
+    element: <Search />,
   },
 ];
 

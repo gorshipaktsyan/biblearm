@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Divider, Slider, Switch } from "@mui/material";
+import { Box, Divider, Slider, styled, Switch } from "@mui/material";
 
 import {
   changeFontSize,
@@ -9,12 +9,10 @@ import {
   toggleNightShift,
 } from "../../../redux/slice/settingsSlice";
 import { RootState } from "../../../redux/store";
-import StyledComponents from "../../styles";
 
 import SettingsStyledComponents from "./styles";
 
-const { StyledBox } = StyledComponents;
-const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } =
+const { StyledSetList, StyledSetListItem, StyledSetTpg } =
   SettingsStyledComponents;
 
 export default function Settings() {
@@ -61,3 +59,9 @@ export default function Settings() {
     </StyledBox>
   );
 }
+
+const StyledBox = styled(Box)({
+  display: "flex",
+  justifyContent: "center",
+  width: "100%",
+});

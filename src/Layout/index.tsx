@@ -6,21 +6,22 @@ import Box from "@mui/material/Box";
 
 import App from "../App";
 import { setAppBarTitle } from "../redux/slice/appBarSlice";
-import { AppDispatch, RootState } from "../redux/store";
+import { RootState } from "../redux/store";
 import { setFontSize, setTitle } from "../utils";
 import { useDoubleTap } from "../utils/hooks";
 import AppBar from "../view/components/AppBar";
 import styled from "@emotion/styled";
+import { useTheme } from "@emotion/react";
 
 function Layout() {
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const theme = useTheme();
   const settings = useSelector((state: RootState) => state.settings);
   const { currentBook } = useSelector((state: RootState) => state.books);
   const { currentChapter } = useSelector(
     (state: RootState) => state.currentChapter
   );
-  const dispatch = useDispatch<AppDispatch>();
-  const { pathname } = useLocation();
-
   useDoubleTap({ pathname, fontSize: settings.fontSize, dispatch });
 
   useEffect(() => {
@@ -43,8 +44,6 @@ function Layout() {
 
   const StyledLayout = styled(Box)({
     minHeight: "100dvh",
-    backgroundColor: settings.isNightShiftEnabled ? "#121212" : "#fdfde8",
-    color: settings.isNightShiftEnabled ? "#ffffff" : "#000000",
   });
   return (
     <StyledLayout>

@@ -1,26 +1,24 @@
-import { UseDispatch, useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+// import { useDispatch, useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
 
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from "@mui/icons-material/Search";
 
-import { setFoundHymns } from '../../../redux/slice/searchSlice';
-import { AppDispatch, RootState } from '../../../redux/store';
+// import { RootState } from "../../../redux/store";
 
-import SearchBarStyledComponents from './styles';
+// import styled from "@emotion/styled";
+// import { Box } from "@mui/material";
+// import StyledComponents from "../../styles";
 
 // const { StyledFab } = StyledComponents;
-const { SearchedBox, StyledSearchIcon } = SearchBarStyledComponents;
 
-function SearchBar() {
-  const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
-  const isMobile = useSelector((state: RootState) => state.settings.isMobile);
-
-  function handleClick() {
-    navigate('/');
-    dispatch(setFoundHymns([]));
-  }
-
+export default function SearchBar() {
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const isMobile = useSelector((state: RootState) => state.settings.isMobile);
+  // function handleClick() {
+  //   navigate("/");
+  //   dispatch(setFoundHymns([]));
+  // }
   // return (
   //   <>
   //     {!isMobile ? (
@@ -36,4 +34,13 @@ function SearchBar() {
   // );
 }
 
-export default SearchBar;
+// const StyledSearchIcon = styled(SearchIcon)({
+//   fontSize: "30px",
+//   marginRight: "10px",
+//   "&:hover": { cursor: "pointer" },
+// });
+// const SearchedBox = styled(Box)({
+//   display: "flex",
+//   justifyContent: "flex-end",
+//   alignItems: "center",
+// });

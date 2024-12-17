@@ -3,7 +3,8 @@ import books from "./storage/books.json";
 
 interface IBookService {
   get: () => IBook[];
-  findBook: (bookCode: string) => IBook | null;
+  findBookByCode: (bookCode: string) => IBook | null;
+  findBookById(bookId: number): IBook | null;
 }
 
 class BooksService implements IBookService {
@@ -16,8 +17,12 @@ class BooksService implements IBookService {
   get(): IBook[] {
     return this.books;
   }
-  findBook(bookCode: string): IBook | null {
+  findBookByCode(bookCode: string): IBook | null {
     const foundBook = this.books.find((book) => book.code === bookCode);
+    return foundBook ? foundBook : null;
+  }
+  findBookById(bookId: number): IBook | null {
+    const foundBook = this.books.find((book) => book._id === bookId);
     return foundBook ? foundBook : null;
   }
 }

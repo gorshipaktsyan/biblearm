@@ -17,12 +17,11 @@ export default function Subject({ subject }: ISubject) {
 }
 
 const StyledSubjectTitle = styled(Box)({
-  fontSize: "16px",
   display: "flex",
   justifyContent: "center",
   fontWeight: "bold",
 });
 const StyledSubject = styled(Box)({
-  fontSize: "16px",
   textAlign: "center",
+  marginBottom: "10px",
 });

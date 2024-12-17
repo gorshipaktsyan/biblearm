@@ -8,11 +8,6 @@ const StyledComponents = {
     flexDirection: "column",
     alignItems: "center",
   }),
-  StyledBox: styled(Box)({
-    display: "flex",
-    justifyContent: "center",
-    width: "100%",
-  }),
   InfoBox: styled(Box)({
     margin: "auto",
     maxWidth: "650px",
@@ -25,11 +20,9 @@ const StyledComponents = {
       color: "grey",
     },
   }),
-  StyledList: styled(List)({
-    display: "grid",
-    width: "100%",
-    paddingBottom: "100px",
-    maxWidth: "650px",
+  StyledVerseNumber: styled(Box)({
+    fontWeight: "bold",
+    marginRight: "5px",
   }),
   StyledFab: styled(Fab)({
     zIndex: 1000,

@@ -54,7 +54,7 @@ const armenian: ILanguageTypes = {
     subjectTitle: "Թեմա՝",
   },
   search: {
-    searchByVerse: "Որոնել ըստ հայերեն խոսքի",
+    searchByVerse: "Որոնել ըստ խոսքի",
     search: "Որոնում",
     searchResult: "Որոնման արդյունքներ",
     errorAlert: "համապատասխան խոսքեր չի գտնվել!",
