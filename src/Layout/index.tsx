@@ -11,12 +11,10 @@ import { setFontSize, setTitle } from "../utils";
 import { useDoubleTap } from "../utils/hooks";
 import AppBar from "../view/components/AppBar";
 import styled from "@emotion/styled";
-import { useTheme } from "@emotion/react";
 
 function Layout() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const theme = useTheme();
   const settings = useSelector((state: RootState) => state.settings);
   const { currentBook } = useSelector((state: RootState) => state.books);
   const { currentChapter } = useSelector(

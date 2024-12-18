@@ -23,11 +23,15 @@ export default function Verse({ verse, activeVerse }: VerseProps) {
 
 const StyledVerse = styled(Box, {
   shouldForwardProp: (prop) => prop !== "isActive",
-})<{ isActive: boolean }>(({ isActive }) => ({
+})<{ isActive: boolean }>(({ theme, isActive }) => ({
   maxWidth: "700px",
   display: "flex",
   width: "100%",
   marginBottom: 5,
-  backgroundColor: isActive ? "#f0f0dc" : "transparent",
+  backgroundColor: isActive
+    ? theme.palette.mode === "light"
+      ? "#f0f0dc"
+      : "#333333"
+    : "transparent",
   transition: "background-color 0.3s ease",
 }));

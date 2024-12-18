@@ -1,7 +1,6 @@
 import { ListHeader } from "./ListHeader";
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
-
 interface IListComponent<T> {
   itemsArray: T[];
   activeItem: T | null;
@@ -25,7 +24,7 @@ export default function ListComponent<T>({
           <StyledItem
             key={index}
             onClick={() => onItemClick(item)}
-            sx={{ fontWeight: activeItem === item ? "bold" : "normal" }}
+            active={activeItem === item}
           >
             {renderItem(item)}
           </StyledItem>
@@ -42,7 +41,8 @@ const StyledList = styled(Box)({
   flexWrap: "wrap",
   width: "100%",
 });
-const StyledItem = styled(Box)({
+
+const StyledItem = styled(Box)<{ active: boolean }>(({ theme, active }) => ({
   padding: "10px 5px",
   fontSize: "20px",
   width: "80px",
@@ -50,9 +50,10 @@ const StyledItem = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  fontWeight: active ? "bold" : "normal",
 
   "&:hover": {
-    backgroundColor: "#f0f0dc",
+    backgroundColor: theme.palette.mode === "light" ? "#f0f0dc" : "#333333",
     cursor: "pointer",
   },
-});
+}));

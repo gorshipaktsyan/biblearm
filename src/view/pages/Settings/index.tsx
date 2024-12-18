@@ -1,23 +1,25 @@
-import { ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Box, Divider, Slider, styled, Switch } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItem,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Slider,
+  styled,
+} from "@mui/material";
 
 import {
   changeFontSize,
-  setIsAllowToUseArrows,
-  toggleNightShift,
+  setNightShiftMode,
+  TThemeState,
 } from "../../../redux/slice/settingsSlice";
 import { RootState } from "../../../redux/store";
 
-import SettingsStyledComponents from "./styles";
-
-const { StyledSetList, StyledSetListItem, StyledSetTpg } =
-  SettingsStyledComponents;
-
 export default function Settings() {
   const settings = useSelector((state: RootState) => state.settings);
-
   const dispatch = useDispatch();
 
   function handleChangeFontSize(e: Event, value: number | number[]): void {
@@ -25,14 +27,11 @@ export default function Settings() {
       dispatch(changeFontSize(value));
     }
   }
-
-  function handleChangeArrows(e: ChangeEvent<HTMLInputElement>): void {
-    dispatch(setIsAllowToUseArrows(e.target.checked));
+  function handleNightShiftModeChange(
+    event: SelectChangeEvent<"light" | "dark" | "system">
+  ): void {
+    dispatch(setNightShiftMode(event.target.value as TThemeState));
   }
-  function handleToggleNightShift(): void {
-    dispatch(toggleNightShift());
-  }
-
   return (
     <StyledBox onTouchStart={(e) => e.stopPropagation()}>
       <StyledSetList>
@@ -50,10 +49,16 @@ export default function Settings() {
         </StyledSetListItem>
         <StyledSetListItem>
           <StyledSetTpg>{settings.language.settings.nightMode}</StyledSetTpg>
-          <Switch
-            checked={settings.isNightShiftEnabled}
-            onChange={handleToggleNightShift}
-          />
+          <Select
+            sx={{ width: "120px", height: "40px" }}
+            value={settings.nightShiftMode}
+            onChange={handleNightShiftModeChange}
+            displayEmpty
+          >
+            <MenuItem value="light">Light</MenuItem>
+            <MenuItem value="dark">Dark</MenuItem>
+            <MenuItem value="system">System</MenuItem>
+          </Select>
         </StyledSetListItem>
       </StyledSetList>
     </StyledBox>
@@ -64,4 +69,20 @@ const StyledBox = styled(Box)({
   display: "flex",
   justifyContent: "center",
   width: "100%",
+});
+const StyledSetList = styled(List)({
+  display: "flex",
+  alignItems: "center",
+  flexDirection: "column",
+  width: "100%",
+  paddingBottom: "100px",
+  maxWidth: "700px",
+});
+const StyledSetListItem = styled(ListItem)({
+  flexDirection: "column",
+  width: "100%",
+});
+const StyledSetTpg = styled(Box)({
+  "&:hover": { cursor: "default" },
+  marginBottom: "10px",
 });
