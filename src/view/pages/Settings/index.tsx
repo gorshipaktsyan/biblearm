@@ -28,7 +28,7 @@ export default function Settings() {
     }
   }
   function handleNightShiftModeChange(
-    event: SelectChangeEvent<"light" | "dark" | "system">
+    event: SelectChangeEvent<TThemeState>
   ): void {
     dispatch(setNightShiftMode(event.target.value as TThemeState));
   }
@@ -49,16 +49,17 @@ export default function Settings() {
         </StyledSetListItem>
         <StyledSetListItem>
           <StyledSetTpg>{settings.language.settings.nightMode}</StyledSetTpg>
-          <Select
-            sx={{ width: "120px", height: "40px" }}
+          <StyledSelectBox
             value={settings.nightShiftMode}
-            onChange={handleNightShiftModeChange}
+            onChange={(e) =>
+              handleNightShiftModeChange(e as SelectChangeEvent<TThemeState>)
+            }
             displayEmpty
           >
             <MenuItem value="light">Light</MenuItem>
             <MenuItem value="dark">Dark</MenuItem>
             <MenuItem value="system">System</MenuItem>
-          </Select>
+          </StyledSelectBox>
         </StyledSetListItem>
       </StyledSetList>
     </StyledBox>
@@ -74,15 +75,18 @@ const StyledSetList = styled(List)({
   display: "flex",
   alignItems: "center",
   flexDirection: "column",
-  width: "100%",
+  width: "20%",
   paddingBottom: "100px",
   maxWidth: "700px",
 });
 const StyledSetListItem = styled(ListItem)({
   flexDirection: "column",
-  width: "100%",
 });
 const StyledSetTpg = styled(Box)({
   "&:hover": { cursor: "default" },
   marginBottom: "10px",
+});
+const StyledSelectBox = styled(Select)({
+  width: "120px",
+  height: "40px",
 });

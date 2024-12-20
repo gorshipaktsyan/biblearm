@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Alert, Box, Fab, List, Typography } from "@mui/material";
+import { Alert, Box, Fab } from "@mui/material";
 
 const StyledComponents = {
   StyledContainer: styled(Box)({
@@ -7,18 +7,6 @@ const StyledComponents = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-  }),
-  InfoBox: styled(Box)({
-    margin: "auto",
-    maxWidth: "650px",
-    padding: "0px 20px 20px 20px",
-    textAlign: "justify",
-  }),
-  StyledLink: styled("a")({
-    color: "black",
-    ":hover": {
-      color: "grey",
-    },
   }),
   StyledVerseNumber: styled(Box)({
     fontWeight: "bold",
@@ -35,9 +23,6 @@ const StyledComponents = {
   StyledAlert: styled(Alert)({
     width: "100%",
     marginTop: "50px",
-  }),
-  StyledTypography: styled(Typography)({
-    marginTop: "100px",
   }),
 };
 

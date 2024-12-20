@@ -12,7 +12,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 export default function App() {
-  const { nightShiftMode } = useSelector((state: RootState) => state.settings);
+  const { nightShiftMode, fontSize } = useSelector(
+    (state: RootState) => state.settings
+  );
   const systemTheme =
     typeof window !== "undefined" && window.matchMedia
       ? window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -22,26 +24,26 @@ export default function App() {
 
   const mode = nightShiftMode === "system" ? systemTheme : nightShiftMode;
 
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-          primary: {
-            main: "#1976d2",
-            dark: "#1565c0",
-            light: "#63a4ff",
-          },
-          secondary: {
-            main: "#9c27b0",
-          },
-          background: {
-            default: mode === "light" ? "#fdfde8" : "#252525",
-          },
+  const theme = useMemo(() => {
+    const baseFontSize = 1;
+    const adjustedFontSize = Math.max(
+      1,
+      Math.min(1.8, baseFontSize * fontSize)
+    );
+
+    return createTheme({
+      palette: {
+        mode,
+        background: {
+          default: mode === "light" ? "#fdfde8" : "#252525",
         },
-      }),
-    [mode]
-  );
+      },
+      typography: {
+        htmlFontSize: baseFontSize,
+        fontSize: adjustedFontSize,
+      },
+    });
+  }, [mode, fontSize]);
 
   return (
     <ThemeProvider theme={theme}>

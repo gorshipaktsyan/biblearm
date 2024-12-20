@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import styled from "@emotion/styled";
-import { Box } from "@mui/material";
 
 interface ISubject {
   subject: string;
@@ -16,12 +15,13 @@ export default function Subject({ subject }: ISubject) {
   );
 }
 
-const StyledSubjectTitle = styled(Box)({
+const StyledSubjectTitle = styled("h4")({
   display: "flex",
   justifyContent: "center",
-  fontWeight: "bold",
+  margin: 0
 });
-const StyledSubject = styled(Box)({
+const StyledSubject = styled("h4")({
   textAlign: "center",
-  marginBottom: "10px",
+  margin: "0 0 10px 0",
+  fontWeight: "lighter"
 });

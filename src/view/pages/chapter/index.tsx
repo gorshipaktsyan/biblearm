@@ -2,7 +2,7 @@ import { Box, styled } from "@mui/material";
 import { SwipeableHandlers, useSwipeable } from "react-swipeable";
 import { useNavigate, useParams } from "react-router-dom";
 import { swipeConfig } from "../../../config";
-import { useSelector, useSwipeNavigation } from "../../../utils/hooks";
+import { useSwipeNavigation } from "../../../utils/hooks";
 import { RootState } from "../../../redux/store";
 import StyledComponents from "../../styles";
 import {
@@ -10,7 +10,7 @@ import {
   setCurrentVerses,
 } from "../../../redux/slice/versesSlice";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { booksService, versesService } from "../../../services";
 import { scrollToVerse } from "../../../utils/scrollToVerse";
 import ArrowBackIconComponent from "./ArrowBackIcon";

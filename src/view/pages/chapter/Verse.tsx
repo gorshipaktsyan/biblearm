@@ -1,4 +1,4 @@
-import { Box, styled } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import { IVerse } from "../../../types";
 import StyledComponents from "../../styles";
 
@@ -16,7 +16,7 @@ export default function Verse({ verse, activeVerse }: VerseProps) {
       isActive={verse.number === activeVerse}
     >
       <StyledVerseNumber>{verse.number}</StyledVerseNumber>
-      <Box>{verse.verse}</Box>
+      <Typography variant="body1">{verse.verse}</Typography>
     </StyledVerse>
   );
 }
@@ -27,7 +27,7 @@ const StyledVerse = styled(Box, {
   maxWidth: "700px",
   display: "flex",
   width: "100%",
-  marginBottom: 5,
+  marginBottom: "5px",
   backgroundColor: isActive
     ? theme.palette.mode === "light"
       ? "#f0f0dc"

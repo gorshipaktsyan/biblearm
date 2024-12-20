@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import App from "../App";
 import { setAppBarTitle } from "../redux/slice/appBarSlice";
 import { RootState } from "../redux/store";
-import { setFontSize, setTitle } from "../utils";
+import { setTitle } from "../utils";
 import { useDoubleTap } from "../utils/hooks";
 import AppBar from "../view/components/AppBar";
 import styled from "@emotion/styled";
@@ -21,10 +21,6 @@ function Layout() {
     (state: RootState) => state.currentChapter
   );
   useDoubleTap({ pathname, fontSize: settings.fontSize, dispatch });
-
-  useEffect(() => {
-    setFontSize(settings.fontSize);
-  }, [settings.fontSize]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

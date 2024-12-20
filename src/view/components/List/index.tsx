@@ -1,6 +1,6 @@
 import { ListHeader } from "./ListHeader";
 import styled from "@emotion/styled";
-import { Box } from "@mui/material";
+import { Box, List, ListItem } from "@mui/material";
 interface IListComponent<T> {
   itemsArray: T[];
   activeItem: T | null;
@@ -34,26 +34,26 @@ export default function ListComponent<T>({
   );
 }
 
-const StyledList = styled(Box)({
+const StyledList = styled(List)({
   maxWidth: "700px",
   display: "flex",
-  justifyContent: "center",
   flexWrap: "wrap",
+  justifyContent: "flex-start",
+  gap: "10px",
   width: "100%",
 });
 
-const StyledItem = styled(Box)<{ active: boolean }>(({ theme, active }) => ({
-  padding: "10px 5px",
-  fontSize: "20px",
-  width: "80px",
-  height: "40px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  fontWeight: active ? "bold" : "normal",
-
-  "&:hover": {
-    backgroundColor: theme.palette.mode === "light" ? "#f0f0dc" : "#333333",
-    cursor: "pointer",
-  },
-}));
+const StyledItem = styled(ListItem)<{ active: boolean }>(
+  ({ theme, active }) => ({
+    width: "calc(12.5% - 10px)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontWeight: active ? "bold" : "normal",
+    whiteSpace: "nowrap",
+    "&:hover": {
+      backgroundColor: theme.palette.mode === "light" ? "#f0f0dc" : "#333333",
+      cursor: "pointer",
+    },
+  })
+);

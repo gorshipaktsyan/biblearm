@@ -1,30 +1,38 @@
 import { useState } from "react";
 
-import { AppBar, Snackbar } from "@mui/material";
+import { AppBar, Snackbar, styled, Toolbar } from "@mui/material";
 
 import StyledComponents from "../../styles";
 
-import ToolBar from "./ToolBar";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import IconBox from "./IconBox";
+import { useLocation } from "react-router-dom";
+import { copyToClipboard } from "../../../utils";
 
 const { StyledAlert } = StyledComponents;
 
 function AppBarComponent() {
   const [copyAlert, setCopyAlert] = useState(false);
   const { language } = useSelector((state: RootState) => state.settings);
+  const { title } = useSelector((state: RootState) => state.appBar);
+  const { pathname } = useLocation();
+
+  function handleTitleClick() {
+    if (pathname.includes(`/chapter`)) {
+      copyToClipboard(window.location.href);
+      setCopyAlert(true);
+    }
+  }
+
   return (
     <>
-      <AppBar
-        position="fixed"
-        component="nav"
-        sx={{
-          backgroundColor: "black",
-          zIndex: 1300,
-        }}
-      >
-        <ToolBar setCopyAlert={setCopyAlert} />
-      </AppBar>
+      <StyledAppBar position="fixed">
+        <Toolbar>
+          <StyledTitle onClick={handleTitleClick}>{title}</StyledTitle>
+          <IconBox />
+        </Toolbar>
+      </StyledAppBar>
       {copyAlert && (
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -40,3 +48,13 @@ function AppBarComponent() {
 }
 
 export default AppBarComponent;
+
+const StyledAppBar = styled(AppBar)({
+  backgroundColor: "black",
+  zIndex: 1300,
+});
+const StyledTitle = styled("h3")({
+  cursor: "pointer",
+  color: "#F5EB5B",
+  margin: 0,
+});

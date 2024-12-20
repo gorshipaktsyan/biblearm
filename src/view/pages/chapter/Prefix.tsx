@@ -20,7 +20,7 @@ const StyledPreFixBox = styled(Box)({
   width: "100%",
   margin: "10px 0 10px 0"
 });
-const StyledPrefix = styled(Box)({
-  textAlign: "center",
-  fontSize: "14px",
+const StyledPrefix = styled("h6")({
+  margin: 0,
+  fontWeight: "lighter"
 });
